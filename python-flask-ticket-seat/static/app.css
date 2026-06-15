@@ -266,15 +266,24 @@ input {
 }
 
 .tip-box {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   gap: 14px;
   align-items: center;
+  justify-content: space-between;
   margin-top: 18px;
   padding: 18px;
   border: 1px solid rgba(22, 179, 79, 0.22);
   border-radius: 22px;
   background: var(--accent-soft);
+}
+
+.tip-copy {
+  min-width: 0;
+}
+
+.tip-copy strong {
+  display: block;
+  margin-bottom: 6px;
 }
 
 .tip-box p {
@@ -304,6 +313,9 @@ input {
   border: 1px solid var(--accent);
   background: #fff;
   color: var(--accent-dark);
+  flex: 0 0 auto;
+  max-width: 260px;
+  white-space: normal;
 }
 
 .ghost-button:hover:not(:disabled),
@@ -497,7 +509,13 @@ button:disabled {
   }
 
   .tip-box {
-    grid-template-columns: 1fr;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tip-box .outline-button {
+    max-width: none;
+    width: 100%;
   }
 }
 

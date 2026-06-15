@@ -68,7 +68,7 @@
 
           <div>
             <div class="code-toolbar">
-              <strong>Retour API courant</strong>
+              <strong>Retour courant</strong>
               <span class="status-pill">JSON</span>
             </div>
             <pre id="statusBox" class="status result-status">Initialisation...</pre>
@@ -76,15 +76,17 @@
         </div>
 
         <div class="tip-box">
+          <div class="tip-copy">
             <strong>Si le plan ne s'affiche pas</strong>
             <p>
               Ajoute <code>http://localhost:5001</code> dans les domaines autorises du widget
               depuis l'espace partenaire Ticket Seat. Sans cela, le navigateur bloque l'iframe par
               securite.
             </p>
-            <button id="showFullSourceButton" class="outline-button" type="button">
-              Afficher HTML + JS + CSS complet
-            </button>
+          </div>
+          <button id="showFullSourceButton" class="outline-button" type="button">
+            Afficher HTML + JS + CSS complet
+          </button>
         </div>
 
         <div id="sourcePanel" class="source-panel" hidden>

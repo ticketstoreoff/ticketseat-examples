@@ -163,11 +163,7 @@ async function loadEvents() {
       eventSelect.appendChild(option);
     }
 
-    setStatus({
-      message: "Evenements charges",
-      count: events.length,
-      apiBaseUrl: window.TICKET_SEAT_DEMO.apiBaseUrl,
-    });
+    setStatus(events);
   } catch (error) {
     setStatus(error);
   }
@@ -207,7 +203,7 @@ async function loadShowtimes(eventId) {
       showtimeSelect.appendChild(option);
     }
 
-    setStatus({ message: "Seances chargees", count: showtimes.length });
+    setStatus(showtimes);
   } catch (error) {
     setStatus(error);
   }
@@ -240,12 +236,7 @@ async function loadStandardEmbed(eventId) {
         allow="payment *"
       ></iframe>
     `;
-    setStatus({
-      message: "Plan standard charge",
-      eventId,
-      embedUrl: embed.embedUrl,
-      event: embed.event,
-    });
+    setStatus(embed);
   } catch (error) {
     iframeWrap.innerHTML = "<p>Impossible de charger le plan. Regarde le message d'erreur.</p>";
     setStatus(error);
@@ -279,12 +270,7 @@ async function loadShowtimeEmbed(showtimeId) {
         allow="payment *"
       ></iframe>
     `;
-    setStatus({
-      message: "Plan charge",
-      showtimeId,
-      embedUrl: embed.embedUrl,
-      showtime: embed.showtime,
-    });
+    setStatus(embed);
   } catch (error) {
     iframeWrap.innerHTML = "<p>Impossible de charger le plan. Regarde le message d'erreur.</p>";
     setStatus(error);
@@ -317,6 +303,7 @@ window.addEventListener("message", (event) => {
   // Le checkout partenaire affiche son propre panier.
   console.log({ eventId, showtimeId, layoutId, seatIds, selection });
 });`);
+  setStatus(data.payload);
   setResult({ message: "Selection recue depuis le plan", ...currentContext, currentSelection });
   renderCart();
 });
@@ -368,8 +355,10 @@ holdButton.addEventListener("click", async () => {
     });
     currentHold = hold;
     purchaseButton.disabled = false;
+    setStatus(hold);
     setResult(hold);
   } catch (error) {
+    setStatus(error);
     setResult(error);
   }
 });
@@ -405,8 +394,10 @@ purchaseButton.addEventListener("click", async () => {
     });
     currentHold = null;
     purchaseButton.disabled = true;
+    setStatus(purchase);
     setResult(purchase);
   } catch (error) {
+    setStatus(error);
     setResult(error);
   }
 });
