@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ticket Seat - Webhooks recus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Notifications serveur</p>
+          <h1>Webhooks Ticket Seat recus</h1>
+          <p class="lead">Les notifications les plus recentes sont affichees en premier.</p>
+        </div>
+        <a class="secondary-link" href="/">Retour a la demo</a>
+      </header>
+
+      <section class="card">
+        <div class="section-title">
+          <span>{{ events|length }}</span>
+          <div>
+            <h2>Historique local</h2>
+            <p>En production, stocke ces notifications dans ta base de donnees.</p>
+          </div>
+        </div>
+
+        {% if events %}
+          <div class="webhook-list">
+            {% for item in events %}
+              <article class="webhook-item">
+                <div class="webhook-head">
+                  <strong>{{ item.event or "evenement inconnu" }}</strong>
+                  <span>{{ item.receivedAt }}</span>
+                </div>
+                <p><strong>Livraison :</strong> {{ item.deliveryId or "-" }}</p>
+                <p><strong>Signature :</strong> {{ item.signature }}</p>
+                <details>
+                  <summary>Donnees recues</summary>
+                  <pre>{{ item.payload | tojson(indent=2) }}</pre>
+                </details>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="muted">Aucune notification recue pour le moment.</p>
+        {% endif %}
+      </section>
+    </main>
+  </body>
+</html>

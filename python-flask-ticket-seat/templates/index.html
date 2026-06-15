@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ticket Seat - Exemple Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Projet exemple officiel</p>
+          <h1>Ticket Seat + Python Flask</h1>
+          <p class="lead">
+            Affiche le plan Ticket Seat pour un evenement standard ou une seance cinema, recupere
+            les sieges choisis, puis gere le panier et l'achat dans Flask.
+          </p>
+        </div>
+        <a class="secondary-link" href="/admin/webhooks">Voir les webhooks recus</a>
+      </header>
+
+      <section class="card">
+        <div class="section-title">
+          <span>1</span>
+          <div>
+            <h2>Choisir l'evenement</h2>
+            <p>Ces donnees viennent des endpoints partenaires Ticket Seat.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <label>
+            Evenement autorise
+            <select id="eventSelect">
+              <option value="">Chargement...</option>
+            </select>
+          </label>
+
+          <label id="showtimeField" hidden>
+            Seance cinema
+            <select id="showtimeSelect" disabled>
+              <option value="">Choisis d'abord un evenement cinema</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="card developer-card">
+        <div class="section-title">
+          <span>2</span>
+          <div>
+            <h2>Code pratique et retour API</h2>
+            <p>
+              Lis d'abord l'appel effectue, puis compare juste a cote le retour renvoye par l'API.
+            </p>
+          </div>
+        </div>
+
+        <div class="developer-grid">
+          <div>
+            <div class="code-toolbar">
+              <strong>Appel API courant</strong>
+              <button id="copyApiCodeButton" class="ghost-button" type="button">Copier</button>
+            </div>
+            <pre id="apiCodeBlock" class="code-block">Chargement du code...</pre>
+          </div>
+
+          <div>
+            <div class="code-toolbar">
+              <strong>Retour API courant</strong>
+              <span class="status-pill">JSON</span>
+            </div>
+            <pre id="statusBox" class="status result-status">Initialisation...</pre>
+          </div>
+        </div>
+
+        <div class="tip-box">
+            <strong>Si le plan ne s'affiche pas</strong>
+            <p>
+              Ajoute <code>http://localhost:5001</code> dans les domaines autorises du widget
+              depuis l'espace partenaire Ticket Seat. Sans cela, le navigateur bloque l'iframe par
+              securite.
+            </p>
+            <button id="showFullSourceButton" class="outline-button" type="button">
+              Afficher HTML + JS + CSS complet
+            </button>
+        </div>
+
+        <div id="sourcePanel" class="source-panel" hidden>
+          <div class="source-panel-head">
+            <div>
+              <h3>Code complet de cette page</h3>
+              <p>Ces fichiers sont ceux que le projet Flask utilise pour cette demo.</p>
+            </div>
+            <button id="hideFullSourceButton" class="ghost-button" type="button">Masquer</button>
+          </div>
+
+          <details open>
+            <summary>HTML</summary>
+            <pre id="sourceHtml" class="code-block large"></pre>
+          </details>
+          <details>
+            <summary>JavaScript</summary>
+            <pre id="sourceJs" class="code-block large"></pre>
+          </details>
+          <details>
+            <summary>CSS</summary>
+            <pre id="sourceCss" class="code-block large"></pre>
+          </details>
+        </div>
+      </section>
+
+      <section class="layout-grid">
+        <div class="card plan-card">
+          <div class="section-title">
+            <span>3</span>
+            <div>
+              <h2>Plan Ticket Seat</h2>
+              <p>Le plan est integre par iframe. Le checkout reste dans cette page Flask.</p>
+            </div>
+          </div>
+
+          <div id="iframeWrap" class="iframe-wrap">
+            <p>Choisis un evenement pour afficher le plan.</p>
+          </div>
+        </div>
+
+        <aside class="card checkout-card">
+          <div class="section-title">
+            <span>4</span>
+            <div>
+              <h2>Panier partenaire</h2>
+              <p>Alimente par le message <code>ticket-seat:selection-changed</code>.</p>
+            </div>
+          </div>
+
+          <div id="selectionList" class="selection-list">
+            <p class="muted">Aucun siege selectionne.</p>
+          </div>
+
+          <div class="total-row">
+            <span>Total</span>
+            <strong id="cartTotal">0 XOF</strong>
+          </div>
+
+          <div class="form-stack">
+            <label>
+              Nom client
+              <input id="customerName" value="Client demo" />
+            </label>
+            <label>
+              Email client
+              <input id="customerEmail" type="email" placeholder="client@example.com" />
+            </label>
+          </div>
+
+          <div class="button-row">
+            <button id="holdButton" disabled>Reserver temporairement</button>
+            <button id="purchaseButton" disabled>Confirmer l'achat</button>
+          </div>
+
+          <p class="mini-label">Retour reservation / achat</p>
+          <pre id="resultBox" class="status small">Les resultats API s'affichent ici.</pre>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      window.TICKET_SEAT_DEMO = {
+        apiBaseUrl: "{{ api_base_url }}",
+      };
+    </script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
