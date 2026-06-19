@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ticket Seat - Exemple Flask</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+    <title>Ticket Seat - Exemple Node.js Express</title>
+    <link rel="stylesheet" href="/app.css" />
   </head>
   <body>
     <main class="page">
       <header class="hero">
         <div>
           <p class="eyebrow">Projet exemple officiel</p>
-          <h1>Ticket Seat + Python Flask</h1>
+          <h1>Ticket Seat + Node.js Express</h1>
           <p class="lead">
             Affiche le plan Ticket Seat pour un evenement standard ou une seance cinema, recupere
-            les sieges choisis, puis gere le panier et l'achat dans Flask.
+            les sieges choisis, puis gere le panier et l'achat dans Express.
           </p>
         </div>
         <a class="secondary-link" href="/admin/webhooks">Voir les webhooks recus</a>
@@ -126,7 +126,7 @@
           <div class="source-panel-head">
             <div>
               <h3>Code complet de cette page</h3>
-              <p>Ces fichiers sont ceux que le projet Flask utilise pour cette demo.</p>
+              <p>Ces fichiers sont ceux que le projet Express utilise pour cette demo.</p>
             </div>
             <button id="hideFullSourceButton" class="ghost-button" type="button">Masquer</button>
           </div>
@@ -204,11 +204,6 @@
       </section>
     </main>
 
-    <script>
-      window.TICKET_SEAT_DEMO = {
-        apiBaseUrl: "{{ api_base_url }}",
-      };
-    </script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="/app.js"></script>
   </body>
 </html>

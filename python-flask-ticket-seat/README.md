@@ -18,7 +18,7 @@ Ticket Seat affiche uniquement le plan de salle. Le site partenaire garde son pr
 ## Installation
 
 ```bash
-cd examples/python-flask-ticket-seat
+cd ticketseat-examples/python-flask-ticket-seat
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
